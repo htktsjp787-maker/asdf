@@ -1,1 +1,504 @@
-<h1>hello world</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>물결 — 함덕 카페</title>
+<style>
+  :root {
+    --sand: #FFF8F0;
+    --foam: #FFFFFF;
+    --emerald: #FF6B6B;
+    --deep-sea: #2D3047;
+    --basalt: #2D3047;
+    --coral: #FFD93D;
+    --line: rgba(14,59,54,0.15);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--sand);
+    color: var(--basalt);
+    font-family: 'Noto Serif KR', serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .label {
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--emerald);
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Header */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 6%;
+    z-index: 100;
+    mix-blend-mode: difference;
+    color: #fff;
+  }
+  header .logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  header nav {
+    display: flex;
+    gap: 32px;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 640px) {
+    header nav { display:none; }
+  }
+
+  /* Hero */
+  .hero {
+    height: 100vh;
+    min-height: 640px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: linear-gradient(180deg, #4ECDC4 0%, #FF6B6B 35%, #2D3047 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 20%, rgba(255,255,255,0.18), transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.2), transparent 60%);
+  }
+
+  .tide-line {
+    position: absolute;
+    bottom: -2px; left: 0; width: 100%;
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 0 6% 100px;
+    color: var(--foam);
+  }
+
+  .hero .label {
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 0.98;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 span {
+    display: block;
+  }
+
+  .hero p {
+    max-width: 480px;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.85);
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 300;
+  }
+
+  /* Sections */
+  section {
+    padding: 120px 6%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-head {
+    margin-bottom: 64px;
+    max-width: 640px;
+  }
+
+  .section-head .label { margin-bottom: 16px; display:block; }
+
+  .section-head h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+
+  /* Intro */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  @media (max-width: 800px) {
+    .intro-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .intro-grid p {
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+  }
+
+  .intro-visual {
+    aspect-ratio: 4/5;
+    background:
+      linear-gradient(160deg, #FFD93D 0%, #FFE3A3 100%);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .intro-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 70%, rgba(255,255,255,0.4), transparent 40%),
+      repeating-linear-gradient(120deg, rgba(14,59,54,0.06) 0 2px, transparent 2px 24px);
+  }
+
+  /* Tide times - signature element */
+  .tides {
+    background: var(--deep-sea);
+    color: var(--foam);
+    padding: 120px 6%;
+  }
+  .tides .section-head .label { color: #FFE3A3; }
+  .tides .section-head { color: var(--foam); }
+
+  .tide-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  @media (max-width: 900px) {
+    .tide-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .tide-card {
+    background: var(--deep-sea);
+    padding: 40px 32px;
+    position: relative;
+    transition: background 0.4s ease;
+  }
+  .tide-card:hover {
+    background: #3D4163;
+  }
+
+  .tide-card .time {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: #FFE3A3;
+    margin-bottom: 16px;
+  }
+
+  .tide-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+
+  .tide-card p {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 300;
+    font-size: 0.92rem;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .tide-card .swatch {
+    width: 100%;
+    height: 6px;
+    margin-bottom: 24px;
+    border-radius: 3px;
+  }
+  .swatch-dawn { background: linear-gradient(90deg, #4ECDC4, #FFD93D); }
+  .swatch-day  { background: linear-gradient(90deg, #FF6B6B, #4ECDC4); }
+  .swatch-sunset { background: linear-gradient(90deg, #FFD93D, #FFE3A3); }
+  .swatch-night { background: linear-gradient(90deg, #2D3047, #FF6B6B); }
+
+  /* Menu */
+  .menu-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .menu-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: baseline;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .menu-row:first-child { border-top: 1px solid var(--line); }
+
+  .menu-row .name {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .menu-row .desc {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: rgba(43,40,38,0.6);
+    grid-column: 1 / 3;
+  }
+  @media (min-width: 640px) {
+    .menu-row .desc { grid-column: auto; align-self:center; }
+  }
+  .menu-row .price {
+    font-family: 'Pretendard', sans-serif;
+    font-size: 1rem;
+    color: var(--emerald);
+    white-space: nowrap;
+  }
+
+  .menu-category {
+    .label { display:block; margin: 56px 0 8px; }
+  }
+  .menu-category:first-child .label { margin-top: 0; }
+
+  /* Location */
+  .location {
+    background: var(--emerald);
+    color: var(--foam);
+    border-radius: 4px;
+    padding: 64px 6%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+  @media (max-width: 800px) {
+    .location { grid-template-columns: 1fr; }
+  }
+  .location .label { color: #FFE3A3; }
+  .location h2 { font-size: 2.2rem; margin: 16px 0 24px; }
+  .location-detail {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+  }
+  .location-detail dt {
+    color: #FFE3A3;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+  .location-detail dd { margin-top: 4px; font-size: 1.05rem; }
+
+  .map-placeholder {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 24px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 64px 6% 40px;
+    text-align: center;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 0.85rem;
+    color: rgba(43,40,38,0.5);
+  }
+  footer .display {
+    font-size: 1.4rem;
+    color: var(--basalt);
+    margin-bottom: 8px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--coral);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">물결</div>
+  <nav>
+    <a href="#about">소개</a>
+    <a href="#tides">하루</a>
+    <a href="#menu">메뉴</a>
+    <a href="#location">오시는 길</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="label">함덕해수욕장 도보 3분</span>
+    <h1><span>파도가</span><span>머무는 곳, 물결</span></h1>
+    <p>에메랄드빛 함덕 바다를 마주한 작은 카페입니다. 창가에 앉아 천천히 흘러가는 하루를 바라보세요.</p>
+  </div>
+  <svg class="tide-line" viewBox="0 0 1440 120" preserveAspectRatio="none" style="height:80px;">
+    <path d="M0,60 C 240,100 480,20 720,60 C 960,100 1200,20 1440,60 L1440,120 L0,120 Z" fill="#FFF8F0"/>
+  </svg>
+</section>
+
+<section id="about">
+  <div class="intro-grid">
+    <div>
+      <span class="label">물결 이야기</span>
+      <h2 style="margin: 16px 0 32px; font-size: clamp(2rem, 4vw, 2.8rem);">제주 화산석과 바람이 만든 공간</h2>
+      <p>함덕의 검은 현무암과 하얀 모래, 그 사이로 펼쳐지는 에메랄드빛 바다. 물결은 그 풍경을 가장 가까이서 담을 수 있는 자리에 자리합니다.</p>
+      <p>제주산 원두와 로컬 농가에서 받은 재료로 만든 디저트를 함께합니다. 창밖 풍경이 바뀌는 속도에 맞춰, 잠시 머물다 가세요.</p>
+    </div>
+    <div class="intro-visual"></div>
+  </div>
+</section>
+
+<section class="tides" id="tides">
+  <div class="section-head">
+    <span class="label">하루의 물결</span>
+    <h2>시간마다 다른 바다</h2>
+  </div>
+  <div class="tide-grid">
+    <div class="tide-card">
+      <div class="time">07:00 – 10:00</div>
+      <div class="swatch swatch-dawn"></div>
+      <h3>물때, 아침</h3>
+      <p>물안개가 걷히며 모래사장이 드러나는 시간. 갓 내린 커피와 함께 가장 한산한 풍경을 만납니다.</p>
+    </div>
+    <div class="tide-card">
+      <div class="time">10:00 – 16:00</div>
+      <div class="swatch swatch-day"></div>
+      <h3>한낮, 에메랄드</h3>
+      <p>함덕 바다가 가장 푸르게 빛나는 시간. 통창 자리에서 윈드서핑하는 풍경을 바라볼 수 있어요.</p>
+    </div>
+    <div class="tide-card">
+      <div class="time">16:00 – 19:00</div>
+      <div class="swatch swatch-sunset"></div>
+      <h3>물들 무렵</h3>
+      <p>하늘과 바다가 같은 색으로 물드는 시간. 테라스 좌석이 가장 먼저 채워집니다.</p>
+    </div>
+    <div class="tide-card">
+      <div class="time">19:00 – 21:00</div>
+      <div class="swatch swatch-night"></div>
+      <h3>밤, 파도 소리</h3>
+      <p>조명을 낮추고 파도 소리만 남는 시간. 따뜻한 음료와 함께 하루를 정리하세요.</p>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="section-head">
+    <span class="label">메뉴</span>
+    <h2>물결의 메뉴</h2>
+  </div>
+
+  <div class="menu-list">
+    <div class="menu-category">
+      <span class="label">커피</span>
+      <div class="menu-row">
+        <div class="name">한라 에스프레소</div>
+        <div class="desc">제주 로스터리 원두를 사용한 깊고 묵직한 한 잔</div>
+        <div class="price">5,000원</div>
+      </div>
+      <div class="menu-row">
+        <div class="name">함덕 라떼</div>
+        <div class="desc">유채꿀을 더한 부드러운 카페라떼</div>
+        <div class="price">6,500원</div>
+      </div>
+      <div class="menu-row">
+        <div class="name">물결 콜드브루</div>
+        <div class="desc">12시간 저온 추출한 시원한 한 잔</div>
+        <div class="price">6,000원</div>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <span class="label">티 & 에이드</span>
+      <div class="menu-row">
+        <div class="name">한라봉 에이드</div>
+        <div class="desc">제주산 한라봉을 직접 짜서 만든 상큼한 에이드</div>
+        <div class="price">7,000원</div>
+      </div>
+      <div class="menu-row">
+        <div class="name">감귤 카모마일</div>
+        <div class="desc">말린 감귤 껍질을 더한 따뜻한 카모마일 티</div>
+        <div class="price">6,000원</div>
+      </div>
+    </div>
+
+    <div class="menu-category">
+      <span class="label">디저트</span>
+      <div class="menu-row">
+        <div class="name">당근 큐브 케이크</div>
+        <div class="desc">제주 당근으로 만든 촉촉한 시그니처 케이크</div>
+        <div class="price">7,500원</div>
+      </div>
+      <div class="menu-row">
+        <div class="name">우유 보리빵</div>
+        <div class="desc">제주 전통 보리빵을 우유 크림과 함께</div>
+        <div class="price">5,500원</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="location">
+    <div>
+      <span class="label">오시는 길</span>
+      <h2>함덕해변 바로 앞</h2>
+      <dl class="location-detail">
+        <dt>주소</dt>
+        <dd>제주특별자치도 제주시 조천읍 함덕해안로 100</dd>
+        <dt>영업시간</dt>
+        <dd>매일 09:00 – 21:00 (라스트오더 20:30)</dd>
+        <dt>전화</dt>
+        <dd>064-000-0000</dd>
+        <dt>주차</dt>
+        <dd>건물 뒤편 무료 주차장 이용 (5대)</dd>
+      </dl>
+    </div>
+    <div class="map-placeholder">
+      지도 영역 — 함덕해수욕장 정류장에서 도보 3분<br>
+      201, 311번 버스 이용 가능
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="display">물결</div>
+  <div>제주 함덕 · Since 2024</div>
+</footer>
+
+</body>
+</html>
